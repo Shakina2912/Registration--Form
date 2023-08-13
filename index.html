@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-image: url(ran.jpeg);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .registration-form {
+    background-color: #ffffff00;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 2px 15px rgb(0, 0, 0);
+    width: 300px;
+  }
+  .form-group {
+    margin-bottom: 20px;
+    padding: 1px;
+    margin-right: 10px;
+  }
+  label, h1 {
+    color: #152215;
+    font-size: 17px;
+    font-style: italic;
+    font-family: 'Franklin Gothic Medium';
+  }
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  .form-group input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #e0daaf;
+    border-radius: 3px;
+  }
+  .error-message {
+    color: #ff220a;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  .submit-btn {
+    background-color: #364f36;
+    color: #c9e89b;
+    font-size: 15px;
+    border: none;
+    padding: 20px 122px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+</style>
+<title>Registration Form</title>
+</head>
+<body>
+  <div class="registration-form">
+    <h2>Registration Form</h2>
+    <form id="registrationForm">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username">
+        <div class="error-message" id="usernameError"></div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email">
+        <div class="error-message" id="emailError"></div>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+        <div class="error-message" id="passwordError"></div>
+      </div>
+      <button type="submit" class="submit-btn">Register</button>
+    </form>
+  </div>
+
+  <script>
+    const registrationForm = document.getElementById('registrationForm');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const usernameError = document.getElementById('usernameError');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+
+    registrationForm.addEventListener('submit', function(event) {
+      let hasError = false;
+
+      if (usernameInput.value.trim() === '') {
+        hasError = true;
+        usernameError.textContent = 'Username is required';
+      } else {
+        usernameError.textContent = '';
+      }
+
+      if (emailInput.value.trim() === '') {
+        hasError = true;
+        emailError.textContent = 'Email is required';
+      } else if (!isValidEmail(emailInput.value)) {
+        hasError = true;
+        emailError.textContent = 'Invalid email format';
+      } else {
+        emailError.textContent = '';
+      }
+
+      if (passwordInput.value.trim() === '') {
+        hasError = true;
+        passwordError.textContent = 'Password is required';
+      } else if (passwordInput.value.length < 6) {
+        hasError = true;
+        passwordError.textContent = 'Password must be at least 6 characters long';
+      } else {
+        passwordError.textContent = '';
+      }
+
+      if (hasError) {
+        event.preventDefault();
+      }
+    });
+
+    function isValidEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+  </script>
+</body>
+</html>
